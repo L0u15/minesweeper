@@ -67,5 +67,13 @@ public class Board {
 		}
 		return s;
 	}
+	
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
 
 }

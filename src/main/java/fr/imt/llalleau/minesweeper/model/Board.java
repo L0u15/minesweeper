@@ -68,6 +68,10 @@ public class Board {
 		return s;
 	}
 	
+	public boolean isMine(int i, int j) {
+		return board[i][j] instanceof Mine;
+	}
+	
 	public int getHeight() {
 		return height;
 	}

@@ -8,7 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -33,6 +33,12 @@ public class App extends Application {
 				Rectangle r = new Rectangle(40, 40);
 				r.setX(i * (r.getHeight() + 1));
 				r.setY(j * (r.getWidth() + 1));
+				if (board.isMine(i, j)) {
+					r.setFill(Color.RED);
+				} else {
+					r.setFill(Color.LIGHTGRAY);
+				}
+
 				children.add(r);
 				System.out.println("new rectangle at " + (i * (r.getHeight() + 1)) + " - " + (j * (r.getWidth() + 1)));
 			}

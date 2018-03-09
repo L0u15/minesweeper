@@ -1,6 +1,5 @@
 package fr.imt.llalleau.minesweeper;
 
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,17 +20,15 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-	
 	public static int SQUARE_HEIGHT = 40;
 	public static int SQUARE_WIDTH = 40;
-	
+	public static int SQUARE_SPACING = 1;
+
 	public static int BOARD_HEIGHT = 5;
 	public static int BOARD_WIDTH = 10;
 	public static int MINES = 10;
-	
-	
+
 	static Board board;
-			
 
 	public static void main(String[] args) {
 		try {
@@ -46,12 +43,12 @@ public class App extends Application {
 
 	public void start(Stage stage) {
 		List<Node> children = new LinkedList<>();
-		
-		for (int y = 0; y < BOARD_HEIGHT; y++) {
-			for (int x = 0; x < BOARD_WIDTH; x++) {
-				final Rectangle r = new Rectangle(40, 40);
-				r.setX(x * (r.getWidth() + 1));
-				r.setY(y * (r.getHeight() + 1));
+
+		for (int h = 0; h < BOARD_HEIGHT; h++) {
+			for (int w = 0; w < BOARD_WIDTH; w++) {
+				final Rectangle r = new Rectangle(SQUARE_WIDTH, SQUARE_HEIGHT);
+				r.setX(w * (r.getWidth() + SQUARE_SPACING));
+				r.setY(h * (r.getHeight() + SQUARE_SPACING));
 				r.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
@@ -68,10 +65,15 @@ public class App extends Application {
 					@Override
 					public void handle(MouseEvent event) {
 						r.setFill(Color.RED);
+						int w, h;
+						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						System.out.println(w + "   " + h);
+						
 					}
 				});
-				
-				if (board.isMine(y, x)) {
+
+				if (board.isMine(h, w)) {
 					r.setFill(Color.RED);
 				} else {
 					r.setFill(Color.LIGHTGRAY);

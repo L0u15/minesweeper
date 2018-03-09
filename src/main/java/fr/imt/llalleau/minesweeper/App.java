@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fr.imt.llalleau.minesweeper.model.Board;
+import fr.imt.llalleau.minesweeper.model.square.Square;
+import fr.imt.llalleau.minesweeper.model.square.State;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -30,6 +32,7 @@ public class App extends Application {
 	public static int MINES = 10;
 
 	static Board board;
+	static Square[][] tab;
 
 	public static void main(String[] args) {
 		try {
@@ -38,12 +41,14 @@ public class App extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		tab = board.getTab();
 		System.out.println(board);
 		launch();
 	}
 
 	public void start(Stage stage) {
 		List<Node> children = new LinkedList<>();
+		
 
 		for (int h = 0; h < BOARD_HEIGHT; h++) {
 			for (int w = 0; w < BOARD_WIDTH; w++) {
@@ -53,13 +58,24 @@ public class App extends Application {
 				r.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
+						int w, h;
+						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
 						r.setFill(Color.GRAY);
 					}
 				});
 				r.setOnMouseExited(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
-						r.setFill(Color.LIGHTGRAY);
+						int w, h;
+						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);	
+						if(board.isMine(h, w)) {
+							r.setFill(Color.RED);
+						}else {
+							r.setFill(Color.LIGHTGRAY);
+						}
+						
 					}
 				});
 				r.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -68,9 +84,7 @@ public class App extends Application {
 						r.setFill(Color.RED);
 						int w, h;
 						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
-						System.out.println(w + "   " + h);
-						
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);						
 					}
 				});
 
@@ -79,7 +93,7 @@ public class App extends Application {
 				} else {
 					r.setFill(Color.LIGHTGRAY);
 				}
-
+//				r.setFill(Color.LIGHTGRAY);
 				children.add(r);
 			}
 		}

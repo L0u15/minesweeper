@@ -17,18 +17,18 @@ public class Board {
 	private Square[][] tab;
 	private List<Point> minePosition;
 
-	public Board(int x, int y, int nb_mine) throws Exception {
+	public Board(int h, int w, int nb_mine) throws Exception {
 
-		if (x <= 0 || y <= 0) {
+		if (h <= 0 || w <= 0) {
 			throw new Exception("Invalid board dimention");
 		}
 
-		if (nb_mine >= x * y || nb_mine <= 0) {
+		if (nb_mine >= h * w || nb_mine <= 0) {
 			throw new Exception("Invalid mine number");
 		}
 
-		this.height = y;
-		this.width = x;
+		this.height = h;
+		this.width = w;
 
 		this.tab = new Square[this.height][this.width];
 		this.minePosition = new ArrayList<Point>();
@@ -90,8 +90,8 @@ public class Board {
 	 * @param y
 	 *            : height index
 	 */
-	public boolean isMine(int x, int y) {
-		return tab[y][x] instanceof Mine;
+	public boolean isMine(int h, int w) {
+		return tab[h][w] instanceof Mine;
 	}
 
 	public int getHeight() {

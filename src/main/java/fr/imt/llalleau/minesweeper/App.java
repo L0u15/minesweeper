@@ -6,14 +6,19 @@ import java.util.List;
 import fr.imt.llalleau.minesweeper.model.Board;
 import fr.imt.llalleau.minesweeper.model.square.Square;
 import fr.imt.llalleau.minesweeper.model.square.State;
+import fr.imt.llalleau.minesweeper.model.square.Mine;
+import fr.imt.llalleau.minesweeper.model.square.Number;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -22,7 +27,6 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-	
 	public static int SQUARE_HEIGHT = 40;
 	public static int SQUARE_WIDTH = 40;
 	public static int SQUARE_SPACING = 1;
@@ -47,21 +51,30 @@ public class App extends Application {
 	}
 
 	public void start(Stage stage) {
-		List<Node> children = new LinkedList<>();
-		
+		final List<Node> children = new LinkedList<>();
 
 		for (int h = 0; h < BOARD_HEIGHT; h++) {
 			for (int w = 0; w < BOARD_WIDTH; w++) {
 				final Rectangle r = new Rectangle(SQUARE_WIDTH, SQUARE_HEIGHT);
 				r.setX(w * (r.getWidth() + SQUARE_SPACING));
 				r.setY(h * (r.getHeight() + SQUARE_SPACING));
+				r.setFill(Color.LIGHTGRAY);
+
+				final Text t = new Text();
+				t.setFont(new Font(20));
+				t.setX(r.getX()+SQUARE_WIDTH / 2);
+				t.setY(r.getY() + SQUARE_HEIGHT / 2);
+				
+
 				r.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
 						int w, h;
 						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
 						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
-						r.setFill(Color.GRAY);
+						if (tab[h][w].getState() == State.HIDDEN) {
+							r.setFill(Color.GRAY);
+						}
 					}
 				});
 				r.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -69,32 +82,43 @@ public class App extends Application {
 					public void handle(MouseEvent event) {
 						int w, h;
 						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);	
-						if(board.isMine(h, w)) {
-							r.setFill(Color.RED);
-						}else {
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						if (tab[h][w].getState() == State.HIDDEN) {
 							r.setFill(Color.LIGHTGRAY);
 						}
-						
+
 					}
 				});
 				r.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
-						r.setFill(Color.RED);
 						int w, h;
 						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);						
+						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						if (event.getButton() == MouseButton.PRIMARY) {
+							if (tab[h][w].getState() == State.HIDDEN) {
+								tab[h][w].setState(State.REVEALED);
+								if (tab[h][w] instanceof Number) {
+									((Rectangle) event.getTarget()).setFill(Color.BLUE);
+									t.setText("" + ((Number) tab[h][w]).getValue());
+									if (((Number) tab[h][w]).getValue() == 0) {
+										// TODO Reveal surroundings
+									}
+								} else if (tab[h][w] instanceof Mine) {
+									((Rectangle) event.getTarget()).setFill(Color.RED);
+								}
+							}
+						} else if (event.getButton() == MouseButton.SECONDARY) {
+							if (tab[h][w].getState() == State.HIDDEN) {
+								tab[h][w].setState(State.FLAG);
+							} else if (tab[h][w].getState() == State.FLAG) {
+								tab[h][w].setState(State.HIDDEN);
+							}
+						}
 					}
 				});
-
-				if (board.isMine(h, w)) {
-					r.setFill(Color.RED);
-				} else {
-					r.setFill(Color.LIGHTGRAY);
-				}
-//				r.setFill(Color.LIGHTGRAY);
 				children.add(r);
+				children.add(t);
 			}
 		}
 		Group root = new Group(children);

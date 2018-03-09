@@ -32,7 +32,12 @@ public class App extends Application {
 	static Board board;
 
 	public static void main(String[] args) {
-		board = new Board(BOARD_HEIGHT, BOARD_WIDTH, MINES);
+		try {
+			board = new Board(BOARD_HEIGHT, BOARD_WIDTH, MINES);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(board);
 		launch();
 	}

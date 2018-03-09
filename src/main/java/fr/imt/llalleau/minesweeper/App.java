@@ -20,6 +20,7 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+	
 	public static int SQUARE_HEIGHT = 40;
 	public static int SQUARE_WIDTH = 40;
 	public static int SQUARE_SPACING = 1;

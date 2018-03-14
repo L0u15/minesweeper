@@ -82,7 +82,7 @@ public class App extends Application {
 						int w, h;
 						w = (int) iv.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
 						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
-						if (tab[h][w].getState() == State.HIDDEN) {
+						if (tab[h][w].getState() == State.HIDDEN || tab[h][w].getState() == State.FLAG) {
 							iv.setOpacity(0.6f);
 						}
 					}
@@ -92,10 +92,8 @@ public class App extends Application {
 					public void handle(MouseEvent event) {
 						int w, h;
 						w = (int) iv.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
-						if (tab[h][w].getState() == State.HIDDEN) {
+						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);		
 							iv.setOpacity(1.f);
-						}
 					}
 				});
 

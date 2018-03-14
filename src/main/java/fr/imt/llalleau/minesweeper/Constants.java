@@ -2,8 +2,8 @@ package fr.imt.llalleau.minesweeper;
 
 public class Constants {
 
-	public static final int SQUARE_HEIGHT = 32;
-	public static final int SQUARE_WIDTH = 32;
+	public static final int SQUARE_DEFAULT_HEIGHT = 32;
+	public static final int SQUARE_DEFAULT_WIDTH = 32;
 	public static final int SQUARE_SPACING = 0;
 
 	public static final int BOARD_HEIGHT = 5;

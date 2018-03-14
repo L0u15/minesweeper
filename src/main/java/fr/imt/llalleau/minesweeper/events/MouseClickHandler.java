@@ -1,10 +1,13 @@
 package fr.imt.llalleau.minesweeper.events;
 
+import java.awt.Point;
+
 import fr.imt.llalleau.minesweeper.Constants;
 import fr.imt.llalleau.minesweeper.ImagesLoader;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.State;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -19,10 +22,6 @@ public class MouseClickHandler extends MouseHandler  {
 
 	@Override
 	public void handle(MouseEvent event) {
-		int w, h;
-		w = (int) iv.getX() / (Constants.SQUARE_WIDTH + Constants.SQUARE_SPACING);
-		h = (int) iv.getY() / (Constants.SQUARE_HEIGHT + Constants.SQUARE_SPACING);
-
 		if (event.getButton() == MouseButton.PRIMARY) {
 			if (tab[h][w].getState() == State.HIDDEN) {
 				tab[h][w].setState(State.REVEALED);

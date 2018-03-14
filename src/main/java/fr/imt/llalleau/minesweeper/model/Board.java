@@ -36,7 +36,7 @@ public class Board {
 		this.minePosition = new ArrayList<Point>();
 
 		this.placeMine(nb_mine);
-		this.placeNumberRecursive(new Point(this.width, this.height));
+		this.placeNumberRecursive(new Point(this.width / 2, this.height / 2));
 
 	}
 
@@ -67,7 +67,9 @@ public class Board {
 			this.setSquare(point, new Number(nbMineAround));
 		}
 		for (Point newtPoint : pointAround) {
-			placeNumberRecursive(newtPoint);
+			if (!this.pointIsOutOfBounds(newtPoint) && this.getSquare(newtPoint) == null) {
+				this.placeNumberRecursive(newtPoint);
+			}
 		}
 
 	}
@@ -93,6 +95,16 @@ public class Board {
 				count++;
 		}
 		return count;
+	}
+
+	private List<Square> getSquaresFromPoint(List<Point> pointList) {
+		List<Square> squareList = new ArrayList<>();
+		for (Point point : pointList) {
+			if (!this.pointIsOutOfBounds(point)) {
+				squareList.add(this.getSquare(point));
+			}
+		}
+		return squareList;
 	}
 
 	private List<Square> getSquareAround(Point centralPoint) {

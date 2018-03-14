@@ -1,5 +1,6 @@
 package fr.imt.llalleau.minesweeper;
 
+import java.net.NetworkInterface;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -27,9 +31,9 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-	public static int SQUARE_HEIGHT = 40;
-	public static int SQUARE_WIDTH = 40;
-	public static int SQUARE_SPACING = 1;
+	public static int SQUARE_HEIGHT = 32;
+	public static int SQUARE_WIDTH = 32;
+	public static int SQUARE_SPACING = 0;
 
 	public static int BOARD_HEIGHT = 5;
 	public static int BOARD_WIDTH = 10;
@@ -51,74 +55,84 @@ public class App extends Application {
 	}
 
 	public void start(Stage stage) {
+
+		final Image hidden = new Image("hidden.png");
+		final Image mine = new Image("mine.png");
+		final Image flag = new Image("flag.png");
+		final Image[] numbers = new Image[9];
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = new Image(i + ".png");
+		}
+
 		final List<Node> children = new LinkedList<>();
 
 		for (int h = 0; h < BOARD_HEIGHT; h++) {
 			for (int w = 0; w < BOARD_WIDTH; w++) {
-				final Rectangle r = new Rectangle(SQUARE_WIDTH, SQUARE_HEIGHT);
-				r.setX(w * (r.getWidth() + SQUARE_SPACING));
-				r.setY(h * (r.getHeight() + SQUARE_SPACING));
-				r.setFill(Color.LIGHTGRAY);
 
-				final Text t = new Text();
-				t.setFont(new Font(20));
-				t.setX(r.getX()+SQUARE_WIDTH / 2);
-				t.setY(r.getY() + SQUARE_HEIGHT / 2);
+				final ImageView iv = new ImageView(hidden);
+				iv.setX(w * iv.getImage().getWidth());
+				iv.setY(h * iv.getImage().getHeight());
+				
+				
 				
 
-				r.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				iv.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
 						int w, h;
-						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						w = (int) iv.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
 						if (tab[h][w].getState() == State.HIDDEN) {
-							r.setFill(Color.GRAY);
+							iv.setOpacity(0.6f);
 						}
 					}
 				});
-				r.setOnMouseExited(new EventHandler<MouseEvent>() {
+				iv.setOnMouseExited(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
 						int w, h;
-						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						w = (int) iv.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
 						if (tab[h][w].getState() == State.HIDDEN) {
-							r.setFill(Color.LIGHTGRAY);
+							iv.setOpacity(1.f);
 						}
+					}
+				});
 
-					}
-				});
-				r.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				iv.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
+						
 						int w, h;
-						w = (int) r.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
-						h = (int) r.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						w = (int) iv.getX() / (SQUARE_WIDTH + SQUARE_SPACING);
+						h = (int) iv.getY() / (SQUARE_HEIGHT + SQUARE_SPACING);
+						
 						if (event.getButton() == MouseButton.PRIMARY) {
 							if (tab[h][w].getState() == State.HIDDEN) {
 								tab[h][w].setState(State.REVEALED);
 								if (tab[h][w] instanceof Number) {
-									((Rectangle) event.getTarget()).setFill(Color.BLUE);
-									t.setText("" + ((Number) tab[h][w]).getValue());
+									int n = ((Number) tab[h][w]).getValue();
+									iv.setImage(numbers[n]);
 									if (((Number) tab[h][w]).getValue() == 0) {
 										// TODO Reveal surroundings
 									}
 								} else if (tab[h][w] instanceof Mine) {
-									((Rectangle) event.getTarget()).setFill(Color.RED);
+									iv.setImage(mine);
 								}
 							}
 						} else if (event.getButton() == MouseButton.SECONDARY) {
 							if (tab[h][w].getState() == State.HIDDEN) {
 								tab[h][w].setState(State.FLAG);
+								iv.setImage(flag);
 							} else if (tab[h][w].getState() == State.FLAG) {
 								tab[h][w].setState(State.HIDDEN);
+								iv.setImage(hidden);
 							}
 						}
 					}
 				});
-				children.add(r);
-				children.add(t);
+
+				children.add(iv);
 			}
 		}
 		Group root = new Group(children);
@@ -127,5 +141,9 @@ public class App extends Application {
 		stage.setTitle("Minesweeper");
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	private void loadImages() {
+
 	}
 }

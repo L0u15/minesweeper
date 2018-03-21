@@ -10,6 +10,7 @@ import java.util.Set;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.Square;
+import fr.imt.llalleau.minesweeper.model.square.State;
 
 public class Board {
 
@@ -18,6 +19,9 @@ public class Board {
 
 	private Square[][] tab;
 	private List<Point> minePosition;
+
+	private final Point[] deltaPoint = { new Point(1, 1), new Point(0, 1), new Point(-1, 1), new Point(-1, 0),
+			new Point(-1, -1), new Point(0, -1), new Point(1, -1) };
 
 	public Board(int h, int w, int nb_mine) throws Exception {
 
@@ -60,13 +64,12 @@ public class Board {
 		if (this.pointIsOutOfBounds(point)) {
 			return;
 		}
-		List<Point> pointAround = this.getPointAround(point);
-		List<Square> SquareAround = this.getSquaresFromPoint(pointAround);
+		List<Square> SquareAround = this.getSquaresFromPoint(this.getPointAround(point));
 		if (this.getSquare(point) == null) {
 			int nbMineAround = this.countMine(SquareAround);
 			this.setSquare(point, new Number(nbMineAround));
 		}
-		for (Point newtPoint : pointAround) {
+		for (Point newtPoint : this.getPointAround(point)) {
 			if (!this.pointIsOutOfBounds(newtPoint) && this.getSquare(newtPoint) == null) {
 				this.placeNumberRecursive(newtPoint);
 			}
@@ -87,52 +90,46 @@ public class Board {
 		return point.getY() < 0 || point.getY() >= this.height || point.getX() < 0 || point.getX() >= this.width;
 	}
 
-	private int countMineAround(Point point) {
-		int count = 0;
-		List<Square> squareAround = this.getSquareAround(point);
-		for (Square square : squareAround) {
-			if (square instanceof Mine)
-				count++;
-		}
-		return count;
-	}
-
 	private List<Square> getSquaresFromPoint(List<Point> pointList) {
 		List<Square> squareList = new ArrayList<>();
 		for (Point point : pointList) {
-			if (!this.pointIsOutOfBounds(point)) {
-				squareList.add(this.getSquare(point));
-			}
+			squareList.add(this.getSquare(point));
 		}
 		return squareList;
 	}
 
-	private List<Square> getSquareAround(Point centralPoint) {
-
-		List<Square> squareAround = new ArrayList<>();
-
-		List<Point> pointAround = this.getPointAround(centralPoint);
-
-		for (Point point : pointAround) {
-			// Check boundaries
-			if (!this.pointIsOutOfBounds(point)) {
-				squareAround.add(this.getSquare(point));
-			}
-		}
-		return squareAround;
-	}
-
+	/**
+	 * Return a list of checked point around the given point
+	 * 
+	 * @param point
+	 * @return
+	 */
 	private List<Point> getPointAround(Point point) {
 		List<Point> pointAround = new ArrayList<>();
-		pointAround.add(new Point(point.x + 1, point.y + 1));
-		pointAround.add(new Point(point.x - 1, point.y + 1));
-		pointAround.add(new Point(point.x, point.y + 1));
-		pointAround.add(new Point(point.x + 1, point.y));
-		pointAround.add(new Point(point.x - 1, point.y));
-		pointAround.add(new Point(point.x + 1, point.y - 1));
-		pointAround.add(new Point(point.x - 1, point.y - 1));
-		pointAround.add(new Point(point.x, point.y - 1));
+		Point p;
+		for (Point delta : this.deltaPoint) {
+			p = new Point(point.x + delta.x, point.y + delta.y);
+			if (!this.pointIsOutOfBounds(point)) {
+				pointAround.add(p);
+			}
+		}
+
 		return pointAround;
+	}
+
+	public void revealRecursif(Point point) {
+		// if the square is already revealed, we do nothing
+		if (this.getSquare(point).getState().equals(State.REVEALED)) {
+			return;
+		}
+
+		this.getSquare(point).setState(State.REVEALED);
+		// if the square if a "0"
+		if (this.getSquare(point) instanceof Number && ((Number) this.getSquare(point)).getValue() == 0) {
+			for (Point p : this.getPointAround(point)) {
+				revealRecursif(p);
+			}
+		}
 	}
 
 	/**

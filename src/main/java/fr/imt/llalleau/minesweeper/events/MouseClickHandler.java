@@ -25,12 +25,12 @@ public class MouseClickHandler extends MouseHandler  {
 	public void handle(MouseEvent event) {
 		if (event.getButton() == MouseButton.PRIMARY) {
 			if (tab[h][w].getState() == State.HIDDEN) {
-				tab[h][w].setState(State.REVEALED);
+				//tab[h][w].setState(State.REVEALED);
 				if (tab[h][w] instanceof Number) {
 					int n = ((Number) tab[h][w]).getValue();
 					iv.setImage(ImagesLoader.numbers[n]);
 					if (((Number) tab[h][w]).getValue() == 0) {
-						App.board.revealRecursif(new Point(h, w));
+						App.board.revealRecursif(new Point(w, h));
 					}
 				} else if (tab[h][w] instanceof Mine) {
 					iv.setImage(ImagesLoader.mine);

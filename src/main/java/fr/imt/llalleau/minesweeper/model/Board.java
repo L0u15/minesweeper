@@ -120,6 +120,10 @@ public class Board {
 	}
 
 	public void revealRecursif(Point point) {
+		if(this.pointIsOutOfBounds(point)) {
+			return;
+		}
+		
 		// if the square is already revealed, we do nothing
 		if (this.getSquare(point).getState().equals(State.REVEALED)) {
 			return;
@@ -141,6 +145,7 @@ public class Board {
 	 * @return
 	 */
 	public Square getSquare(Point point) {
+		System.out.println("get square : " + point);
 		return this.tab[point.y][point.x];
 	}
 

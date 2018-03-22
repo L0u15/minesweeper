@@ -93,7 +93,9 @@ public class Board {
 	private List<Square> getSquaresFromPoint(List<Point> pointList) {
 		List<Square> squareList = new ArrayList<>();
 		for (Point point : pointList) {
-			squareList.add(this.getSquare(point));
+			if (!this.pointIsOutOfBounds(point)) {
+				squareList.add(this.getSquare(point));
+			}
 		}
 		return squareList;
 	}

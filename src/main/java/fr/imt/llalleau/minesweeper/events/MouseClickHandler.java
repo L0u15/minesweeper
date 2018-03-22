@@ -2,6 +2,7 @@ package fr.imt.llalleau.minesweeper.events;
 
 import java.awt.Point;
 
+import fr.imt.llalleau.minesweeper.App;
 import fr.imt.llalleau.minesweeper.Constants;
 import fr.imt.llalleau.minesweeper.ImagesLoader;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
@@ -29,7 +30,7 @@ public class MouseClickHandler extends MouseHandler  {
 					int n = ((Number) tab[h][w]).getValue();
 					iv.setImage(ImagesLoader.numbers[n]);
 					if (((Number) tab[h][w]).getValue() == 0) {
-						// TODO Reveal surroundings
+						App.board.revealRecursif(new Point(h, w));
 					}
 				} else if (tab[h][w] instanceof Mine) {
 					iv.setImage(ImagesLoader.mine);

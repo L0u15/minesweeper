@@ -8,5 +8,5 @@ public class Constants {
 
 	public static final int BOARD_HEIGHT = 5;
 	public static final int BOARD_WIDTH = 10;
-	public static final int MINES = 10;
+	public static final int MINES = 1;
 }

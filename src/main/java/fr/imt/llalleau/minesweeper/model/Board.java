@@ -120,10 +120,10 @@ public class Board {
 	}
 
 	public void revealRecursif(Point point) {
-		if(this.pointIsOutOfBounds(point)) {
+		if (this.pointIsOutOfBounds(point)) {
 			return;
 		}
-		
+
 		// if the square is already revealed, we do nothing
 		if (this.getSquare(point).getState().equals(State.REVEALED)) {
 			return;
@@ -136,6 +136,24 @@ public class Board {
 				revealRecursif(p);
 			}
 		}
+	}
+
+	public void hideRecursif(Point point) {
+		if (this.pointIsOutOfBounds(point)) {
+			return;
+		}
+		// if the square is already hide, we do nothing
+		if (this.getSquare(point).getState().equals(State.HIDDEN)) {
+			return;
+		}
+		this.getSquare(point).setState(State.HIDDEN);
+		// if the square if a "0"
+		if (this.getSquare(point) instanceof Number && ((Number) this.getSquare(point)).getValue() == 0) {
+			for (Point p : this.getPointAround(point)) {
+				revealRecursif(p);
+			}
+		}
+
 	}
 
 	/**

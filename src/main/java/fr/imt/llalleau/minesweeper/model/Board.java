@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import fr.imt.llalleau.minesweeper.App;
+import fr.imt.llalleau.minesweeper.ImagesLoader;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.Square;
 import fr.imt.llalleau.minesweeper.model.square.State;
+import javafx.scene.image.ImageView;
 
 public class Board {
 
@@ -120,10 +123,10 @@ public class Board {
 	}
 
 	public void revealRecursif(Point point) {
-		if(this.pointIsOutOfBounds(point)) {
+		if (this.pointIsOutOfBounds(point)) {
 			return;
 		}
-		
+
 		// if the square is already revealed, we do nothing
 		if (this.getSquare(point).getState().equals(State.REVEALED)) {
 			return;
@@ -201,4 +204,6 @@ public class Board {
 	public List<Point> getMinePosition() {
 		return this.minePosition;
 	}
+
+	
 }

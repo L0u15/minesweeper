@@ -16,7 +16,8 @@ public class Action {
 	public Action(Point point, Action previous) {
 		this(point);
 		this.previous = previous;
-		this.previous.setNext(this);
+		if (this.previous != null)
+			this.previous.setNext(this);
 	}
 
 	public Point getPoint() {
@@ -43,4 +44,9 @@ public class Action {
 		return this.next == null;
 	}
 
+	@Override
+	public String toString() {
+		return "[x=" + this.point.x + ",y=" + this.point.y + "]-->"
+				+ (this.isFirst() ? "NULL" : this.previous.toString());
+	}
 }

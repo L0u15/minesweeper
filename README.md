@@ -40,7 +40,7 @@ Pour chaque position de la liste:
 ```
 Cet algorithme a une complexité de **O(M)**
 
-Comme M sera toujours inferieur à H*L ( il ne peut pas y avoir plus de mines que de cases sur le plateau), le deuxième algorithme est plus optimisé.
+Comme M sera toujours inferieur à H*L ( il ne peut pas y avoir plus de mines que de cases sur le plateau), l'algorithme non récursif est plus optimisé.
 
 aspect technique
     algo

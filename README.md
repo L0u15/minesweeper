@@ -12,7 +12,7 @@
 5. A quoi servent les arbres B ?
 6. Quelle est la différence entre l’arbre B et l’arbre B+ ?
 
-## 2. Evaluation de la complexité
+## 2. Récursivité : évaluation de la complexité
 1. Placement des nombres sur le plateau
 - Pour l'exercice, nous avons placé les nombres sur le plateau en utilisant un algorithme récursif:
 
@@ -40,15 +40,8 @@ Pour chaque position de la liste:
 ```
 Cet algorithme a une complexité de **O(M)**
 
-Comme M sera toujours inferieur à H*L ( il ne peut pas y avoir plus de mines que de cases sur le plateau), le deuxième algorithme est plus optimisé.
+Comme M sera toujours inferieur à H*L ( il ne peut pas y avoir plus de mines que de cases sur le plateau), l'algorithme non récursif est plus optimisé.
 
-aspect technique
-    algo
-    code
-    precessus decouvert slick2d, ce qu'on en pense, doc, difficulté slick?
-methodoloie projet
-    communication
-    ce qu'on garde
-    ce qu'on jette
-
+2. Fonctionalité UNDO et REDO
+Dans notre jeu, nous pouvons revenir en arrière et repartir vers la dernière action faite. Cette fonctionalité repose sur une **liste doublement chainée** (class `Action.java`).
 

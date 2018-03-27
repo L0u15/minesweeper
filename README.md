@@ -44,4 +44,3 @@ Comme M sera toujours inferieur à H*L ( il ne peut pas y avoir plus de mines qu
 
 2. Fonctionalité UNDO et REDO
 Dans notre jeu, nous pouvons revenir en arrière et repartir vers la dernière action faite. Cette fonctionalité repose sur une **liste doublement chainée** (class `Action.java`).
-

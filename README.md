@@ -1,16 +1,11 @@
 # Projet d'algorithmie : Démineur
 ## 1. Questions générales
-1. Donnez en quelques lignes, l’historique de l’arbre B. Et quelle est la signification de la lettre « B ».
-> L'histoire de l'arbre B débute dans les années 1960 avec Rudolf Bayer et Ed McCreight. Dans leur papier de recherche *Organization and maintenance of large ordered indexes*, ils essayent des algorithmes pour trier et retrouver des informations sur des ordinateurs. La lettre "B" signifie "balancing" en anglais. On peut traduire cela par "arbre équilibré".
+1. Auteur algo (Will)
+2. L'histoire de l'arbre-B
+> L'histoire de l'arbre B débute dans les années 1960 1970 avec **Rudolf Bayer** et **Edward Meyers McCreight**. Dans son papier de recherche *Binary B-Trees for Virtual Memory*, Rudolf Bayer  décrit une classe d’arbre binaire maintenant un ensemble de données ordonnées. L’insertion, la suppression et la recherche de clef peut être faite avec une complexité de **O(log n)** ou n est la cardinalité de l’ensemble des données.
+En 1972, Bayer et Meyers publient *Organization and Maintenance of Large Ordered Indexes*. Ils y présent de nouveaux algorithmes de trie et de recherche d’informations sur ordinateurs, ainsi que leurs performances. Ces algorithmes étaient basés sur la structure de données arbre-B.
+Depuis les arbre-B sont utilisées notamment par les bases de données et les systèmes de fichiers (HFS+,NTFS, btrfs).
 
-2. Est-ce que l’arbre-B est un arbre binaire ?
-> Non. Les 2 sont des types de structures de données en arbre. L'arbre binaire est une structure de données qui a au plus 2 fils. 
-3. Est-ce que l’arbre-B est un arbre équilibré ?
-> Oui. L'arbre-B est un arbre équilibré.
-4. Est-ce que l’arbre B grandit à partir de la racine ou à partir des feuilles ?
-> L'insertion commence par des feuilles. Ensuite, l'algorithme d'insertion va remanier l'arbre pour le garder équilibré.
-5. A quoi servent les arbres B ?
-6. Quelle est la différence entre l’arbre B et l’arbre B+ ?
 
 ## 2. Récursivité : évaluation de la complexité
 1. Placement des nombres sur le plateau

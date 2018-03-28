@@ -11,9 +11,11 @@ public class KeyboardHandler implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent keyEvent) {
 		if (keyEvent.getCode() == KeyCode.LEFT) {
 			//TODO : undo
+			System.out.println("UNDO");
             keyEvent.consume();
         }else if(keyEvent.getCode() == KeyCode.RIGHT){
         	//TODO : redo
+			System.out.println("REDO");
             keyEvent.consume();
         }
 

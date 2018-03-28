@@ -3,6 +3,7 @@ package fr.imt.llalleau.minesweeper;
 import java.util.LinkedList;
 import java.util.List;
 
+import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
 import fr.imt.llalleau.minesweeper.events.MouseClickHandler;
 import fr.imt.llalleau.minesweeper.events.MouseHoverHandler;
 import fr.imt.llalleau.minesweeper.graphics.GraphicalBoard;
@@ -24,7 +25,6 @@ public class App extends Application {
 	public static Board board;
 	public static GraphicalBoard gBoard;
 
-
 	public static void main(String[] args) {
 		try {
 			ImagesLoader.loadImages();
@@ -38,12 +38,12 @@ public class App extends Application {
 	}
 
 	public void start(Stage stage) {
-		
+
 		List<Node> cases = gBoard.createBoard();
-		
+
 		Group root = new Group(cases);
 		Scene scene = new Scene(root, 410, 410);
-
+		scene.setOnKeyPressed(new KeyboardHandler());
 		stage.setTitle("Minesweeper");
 		stage.setScene(scene);
 		stage.show();

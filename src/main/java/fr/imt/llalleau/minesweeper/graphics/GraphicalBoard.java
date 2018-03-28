@@ -41,7 +41,6 @@ public class GraphicalBoard {
 				iv.setOnMouseEntered(new MouseHoverHandler(iv));
 				iv.setOnMouseExited(new MouseHoverHandler(iv));
 				iv.setOnMouseClicked(new MouseClickHandler(iv));
-				iv.setOnKeyPressed(new KeyboardHandler());
 
 				cases.add(iv);
 				imageViewTab[h][w] = iv;

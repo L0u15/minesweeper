@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public abstract class MouseHandler implements EventHandler<MouseEvent>{
+public abstract class MouseHandler implements EventHandler<MouseEvent> {
 	protected ImageView iv;
 	protected Square[][] tab;
 	protected Board board;
@@ -21,7 +21,7 @@ public abstract class MouseHandler implements EventHandler<MouseEvent>{
 		w = (int) getCoord().getX();
 		h = (int) getCoord().getY();
 	}
-	
+
 	protected Point2D getCoord() {
 		return new Point2D(iv.getX() / Constants.SQUARE_DEFAULT_WIDTH, iv.getY() / Constants.SQUARE_DEFAULT_HEIGHT);
 	}

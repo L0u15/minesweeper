@@ -23,8 +23,17 @@ public class Board {
 	private Square[][] tab;
 	private List<Point> minePosition;
 
-	private final Point[] deltaPoint = { new Point(1, 1), new Point(0, 1), new Point(-1, 1), new Point(-1, 0),
-			new Point(-1, -1), new Point(0, -1), new Point(1, -1) };
+	private final Point[] deltaPoint =
+		{ 
+			new Point(1, 1), 
+			new Point(0, 1), 
+			new Point(-1, 1), 
+			new Point(-1, 0),
+			new Point(+1, 0),
+			new Point(-1, -1), 
+			new Point(0, -1), 
+			new Point(1, -1)
+		};	
 
 	public Board(int h, int w, int nb_mine) throws Exception {
 

@@ -1,7 +1,7 @@
 package fr.imt.llalleau.minesweeper.events;
 
 import fr.imt.llalleau.minesweeper.App;
-import fr.imt.llalleau.minesweeper.Constants;
+import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.model.Board;
 import fr.imt.llalleau.minesweeper.model.square.Square;
 import javafx.event.EventHandler;
@@ -23,6 +23,6 @@ public abstract class MouseHandler implements EventHandler<MouseEvent> {
 	}
 
 	protected Point2D getCoord() {
-		return new Point2D(iv.getX() / Constants.SQUARE_DEFAULT_WIDTH, iv.getY() / Constants.SQUARE_DEFAULT_HEIGHT);
+		return new Point2D(iv.getX() / Data.SQUARE_SIZE, iv.getY() / Data.SQUARE_SIZE);
 	}
 }

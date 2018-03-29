@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fr.imt.llalleau.minesweeper.App;
-import fr.imt.llalleau.minesweeper.Constants;
+import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.ImagesLoader;
 import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
 import fr.imt.llalleau.minesweeper.events.MouseClickHandler;
@@ -26,14 +26,14 @@ public class GraphicalBoard {
 	public GraphicalBoard() {
 		board = App.board;
 		tab = App.board.getTab();
-		imageViewTab = new ImageView[Constants.BOARD_HEIGHT][Constants.BOARD_WIDTH];
+		imageViewTab = new ImageView[Data.BOARD_HEIGHT][Data.BOARD_WIDTH];
 	}
 
 	public List<Node> createBoard() {
 		List<Node> cases = new LinkedList<>();
 
-		for (int h = 0; h < Constants.BOARD_HEIGHT; h++) {
-			for (int w = 0; w < Constants.BOARD_WIDTH; w++) {
+		for (int h = 0; h < Data.BOARD_HEIGHT; h++) {
+			for (int w = 0; w < Data.BOARD_WIDTH; w++) {
 				final ImageView iv = new ImageView(ImagesLoader.hidden);
 				iv.setX(w * iv.getImage().getWidth());
 				iv.setY(h * iv.getImage().getHeight());
@@ -61,7 +61,6 @@ public class GraphicalBoard {
 
 						}
 					} else if (tab[x][y] instanceof Mine) {
-						System.out.println("BINGO");
 						v.setImage(ImagesLoader.mine);
 					}
 				}

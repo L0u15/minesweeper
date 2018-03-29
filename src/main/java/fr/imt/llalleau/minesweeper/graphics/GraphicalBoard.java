@@ -53,7 +53,7 @@ public class GraphicalBoard {
 		for (int x = 0; x < tab.length; x++) {
 			for (int y = 0; y < tab[x].length; y++) {
 				ImageView v = getImageView(x, y);
-				if (tab[x][y].getState() == State.HIDDEN) {
+				if (tab[x][y].getState() == State.REVEALED) {
 					if (tab[x][y] instanceof Number) {
 						int n = ((Number) tab[x][y]).getValue();
 						v.setImage(ImagesLoader.numbers[n]);

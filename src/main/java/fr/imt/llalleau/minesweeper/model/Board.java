@@ -132,12 +132,20 @@ public class Board {
 			return;
 		}
 
-		this.getSquare(point).setState(State.REVEALED);
-		// if the square if a "0"
-		if (this.getSquare(point) instanceof Number && ((Number) this.getSquare(point)).getValue() == 0) {
-			for (Point p : this.getPointAround(point)) {
-				revealRecursif(p);
+		
+		if(this.getSquare(point) instanceof Number) {
+			this.getSquare(point).setState(State.REVEALED);
+			if(((Number) this.getSquare(point)).getValue() == 0) {
+				for (Point p : this.getPointAround(point)) {
+					revealRecursif(p);
+				}
 			}
+		}
+		
+		if(this.getSquare(point) instanceof Mine) {
+			System.out.println("PERDU !");
+			this.getSquare(point).setState(State.REVEALED);
+			
 		}
 	}
 
@@ -166,7 +174,6 @@ public class Board {
 	 * @return
 	 */
 	public Square getSquare(Point point) {
-		System.out.println("get square : " + point);
 		return this.tab[point.y][point.x];
 	}
 

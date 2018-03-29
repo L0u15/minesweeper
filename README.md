@@ -3,7 +3,7 @@
 1. Auteur algo (Will)
 2. L'histoire de l'arbre-B
 > L'histoire de l'arbre B débute dans les années 1960 1970 avec **Rudolf Bayer** et **Edward Meyers McCreight**. Dans son papier de recherche *Binary B-Trees for Virtual Memory*, Rudolf Bayer  décrit une classe d’arbre binaire maintenant un ensemble de données ordonnées. L’insertion, la suppression et la recherche de clef peut être faite avec une complexité de **O(log n)** ou n est la cardinalité de l’ensemble des données.
-En 1972, Bayer et Meyers publient *Organization and Maintenance of Large Ordered Indexes*. Ils y présent de nouveaux algorithmes de trie et de recherche d’informations sur ordinateurs, ainsi que leurs performances. Ces algorithmes étaient basés sur la structure de données arbre-B.
+En 1972, Bayer et Meyers publient *Organization and Maintenance of Large Ordered Indexes*. Ils y présent de nouveaux algorithmes de tri et de recherche d’informations sur ordinateurs, ainsi que leurs performances. Ces algorithmes étaient basés sur la structure de données arbre-B.
 Depuis les arbre-B sont utilisées notamment par les bases de données et les systèmes de fichiers (HFS+,NTFS, btrfs).
 
 

@@ -6,7 +6,6 @@ import java.util.List;
 import fr.imt.llalleau.minesweeper.App;
 import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.ImagesLoader;
-import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
 import fr.imt.llalleau.minesweeper.events.MouseClickHandler;
 import fr.imt.llalleau.minesweeper.events.MouseHoverHandler;
 import fr.imt.llalleau.minesweeper.model.Board;

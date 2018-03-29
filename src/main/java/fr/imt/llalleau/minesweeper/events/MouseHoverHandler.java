@@ -1,6 +1,5 @@
 package fr.imt.llalleau.minesweeper.events;
 
-import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.model.square.State;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;

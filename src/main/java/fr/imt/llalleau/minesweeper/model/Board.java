@@ -2,18 +2,13 @@ package fr.imt.llalleau.minesweeper.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
-import fr.imt.llalleau.minesweeper.App;
-import fr.imt.llalleau.minesweeper.ImagesLoader;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.Square;
 import fr.imt.llalleau.minesweeper.model.square.State;
-import javafx.scene.image.ImageView;
 
 public class Board {
 

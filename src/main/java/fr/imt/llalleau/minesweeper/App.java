@@ -1,23 +1,15 @@
 package fr.imt.llalleau.minesweeper;
 
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
-import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
-import fr.imt.llalleau.minesweeper.events.MouseClickHandler;
-import fr.imt.llalleau.minesweeper.events.MouseHoverHandler;
 import fr.imt.llalleau.minesweeper.graphics.GraphicalBoard;
 import fr.imt.llalleau.minesweeper.model.Board;
-import fr.imt.llalleau.minesweeper.model.square.Square;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -60,7 +52,6 @@ public class App extends Application {
 	private static void calculateSizes() {
 		while(Data.BOARD_HEIGHT * Data.SQUARE_SIZE > Data.SCREEN_HEIGHT || Data.BOARD_WIDTH * Data.SQUARE_SIZE > Data.SCREEN_WIDTH) {
 			Data.SQUARE_SIZE -= 4;
-			System.out.println("trying with : " + Data.SQUARE_SIZE);
 			if(Data.SQUARE_SIZE <Data.SQUARE_MINUMUM_SIZE) {
 				System.out.println("That's way too much cells for you small screen !");
 				System.exit(1);

@@ -3,12 +3,8 @@ package fr.imt.llalleau.minesweeper.events;
 import java.awt.Point;
 
 import fr.imt.llalleau.minesweeper.App;
-import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.ImagesLoader;
-import fr.imt.llalleau.minesweeper.model.square.Mine;
-import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.State;
-import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

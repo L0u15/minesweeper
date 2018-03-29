@@ -1,6 +1,8 @@
 package fr.imt.llalleau.minesweeper;
 
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.Iterator;
 import java.util.List;
 
 import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
@@ -50,9 +52,10 @@ public class App extends Application {
 	}
 
 	private static void calculateSizes() {
-		while(Data.BOARD_HEIGHT * Data.SQUARE_SIZE > Data.SCREEN_HEIGHT || Data.BOARD_WIDTH * Data.SQUARE_SIZE > Data.SCREEN_WIDTH) {
+		while (Data.BOARD_HEIGHT * Data.SQUARE_SIZE > Data.SCREEN_HEIGHT
+				|| Data.BOARD_WIDTH * Data.SQUARE_SIZE > Data.SCREEN_WIDTH) {
 			Data.SQUARE_SIZE -= 4;
-			if(Data.SQUARE_SIZE <Data.SQUARE_MINUMUM_SIZE) {
+			if (Data.SQUARE_SIZE < Data.SQUARE_MINUMUM_SIZE) {
 				System.out.println("That's way too much cells for you small screen !");
 				System.exit(1);
 			}

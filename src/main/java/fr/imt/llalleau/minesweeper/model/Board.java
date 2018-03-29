@@ -2,9 +2,11 @@ package fr.imt.llalleau.minesweeper.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
 import fr.imt.llalleau.minesweeper.model.square.Square;
@@ -17,6 +19,7 @@ public class Board {
 
 	private Square[][] tab;
 	private List<Point> minePosition;
+	private int nbSquareLeft;
 
 	private final Point[] deltaPoint = { new Point(1, 1), new Point(0, 1), new Point(-1, 1), new Point(-1, 0),
 			new Point(+1, 0), new Point(-1, -1), new Point(0, -1), new Point(1, -1) };
@@ -36,6 +39,8 @@ public class Board {
 
 		this.tab = new Square[this.height][this.width];
 		this.minePosition = new ArrayList<Point>();
+
+		this.nbSquareLeft = h * w;
 
 		this.placeMine(nb_mine);
 		this.placeNumberRecursive(new Point(this.width / 2, this.height / 2));
@@ -127,20 +132,18 @@ public class Board {
 			return;
 		}
 
-		
-		if(this.getSquare(point) instanceof Number) {
+		if (this.getSquare(point) instanceof Number) {
 			this.getSquare(point).setState(State.REVEALED);
-			if(((Number) this.getSquare(point)).getValue() == 0) {
+			nbSquareLeft--;
+			if (((Number) this.getSquare(point)).getValue() == 0) {
 				for (Point p : this.getPointAround(point)) {
 					revealRecursif(p);
 				}
 			}
 		}
-		
-		if(this.getSquare(point) instanceof Mine) {
-			System.out.println("PERDU !");
+
+		if (this.getSquare(point) instanceof Mine) {
 			this.getSquare(point).setState(State.REVEALED);
-			
 		}
 	}
 
@@ -152,14 +155,26 @@ public class Board {
 		if (this.getSquare(point).getState().equals(State.HIDDEN)) {
 			return;
 		}
-		this.getSquare(point).setState(State.HIDDEN);
-		// if the square if a "0"
-		if (this.getSquare(point) instanceof Number && ((Number) this.getSquare(point)).getValue() == 0) {
-			for (Point p : this.getPointAround(point)) {
-				revealRecursif(p);
+		if (this.getSquare(point) instanceof Number) {
+			this.getSquare(point).setState(State.HIDDEN);
+			nbSquareLeft++;
+			if (((Number) this.getSquare(point)).getValue() == 0) {
+				for (Point p : this.getPointAround(point)) {
+					revealRecursif(p);
+				}
 			}
 		}
+		if (this.getSquare(point) instanceof Mine) {
+			this.getSquare(point).setState(State.HIDDEN);
+		}
+	}
 
+	public void checkEndGame(Point lastClick) {
+		if (isMine(lastClick)) {
+			System.out.println("perdu");
+		} else if(nbSquareLeft == Data.MINES){
+			System.out.println("gagné");
+		}
 	}
 
 	/**

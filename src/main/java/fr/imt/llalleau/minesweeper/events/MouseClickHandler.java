@@ -22,6 +22,7 @@ public class MouseClickHandler extends MouseHandler  {
 		if (event.getButton() == MouseButton.PRIMARY) {
 			App.board.revealRecursif(new Point(w, h));
 			App.gBoard.updateImages();
+			App.board.checkEndGame(new Point(w, h));
 		} else if (event.getButton() == MouseButton.SECONDARY) {
 			if (tab[h][w].getState() == State.HIDDEN) {
 				tab[h][w].setState(State.FLAG);
@@ -31,5 +32,6 @@ public class MouseClickHandler extends MouseHandler  {
 				iv.setImage(ImagesLoader.hidden);
 			}
 		}
+		
 	}
 }

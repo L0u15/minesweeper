@@ -5,58 +5,62 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import javafx.scene.input.MouseButton;
+
 public class CurrentActionTest {
+
+	@Before
+	public void clear() {
+		CurrentAction.clear();
+	}
+
 	@Test
 	public void isNullTest() {
-		CurrentAction currentAction = new CurrentAction();
-		assertTrue(currentAction.isNull());
+		assertTrue(CurrentAction.isNull());
 	}
 
 	@Test
 	public void isFirstTest() {
-		CurrentAction currentAction = new CurrentAction();
-		currentAction.add(new Point(1, 1));
-		assertTrue(currentAction.isLast());
+		CurrentAction.add(new Action(new Point(1, 1), MouseButton.PRIMARY));
+		assertTrue(CurrentAction.isLast());
 	}
 
 	@Test
 	public void isLastTest() {
-		CurrentAction currentAction = new CurrentAction();
-		currentAction.add(new Point(1, 1));
-		assertTrue(currentAction.isLast());
+		CurrentAction.add(new Action(new Point(1, 1), MouseButton.PRIMARY));
+		assertTrue(CurrentAction.isLast());
 	}
 
 	@Test
 	public void getPointTest() {
-		CurrentAction currentAction = new CurrentAction();
 		Point point = new Point(1, 1);
-		currentAction.add(point);
-		assertEquals(point, currentAction.getPoint());
+		CurrentAction.add(new Action(point, MouseButton.PRIMARY));
+		assertEquals(point, CurrentAction.getPoint());
 	}
-	
+
 	@Test
 	public void undoTest() {
-		CurrentAction currentAction = new CurrentAction();
 		Point point = new Point(1, 1);
-		currentAction.add(point);
-		currentAction.add(new Point(2,2));
-		currentAction.undo();
-		assertEquals(point, currentAction.getPoint());
+		Point point2 = new Point(2, 2);
+		CurrentAction.add(new Action(point, MouseButton.PRIMARY));
+		CurrentAction.add(new Action(point2, MouseButton.PRIMARY));
+		CurrentAction.undo();
+		assertEquals(point, CurrentAction.getPoint());
 	}
-	
+
 	@Test
 	public void redoTest() {
-		CurrentAction currentAction = new CurrentAction();
 		Point point = new Point(1, 1);
-		Point point2 = new Point(2,2);
+		Point point2 = new Point(2, 2);
 
-		currentAction.add(point);
-		currentAction.add(point2);
-		currentAction.undo();
-		currentAction.redo();
-		assertEquals(point2, currentAction.getPoint());
+		CurrentAction.add(new Action(point, MouseButton.PRIMARY));
+		CurrentAction.add(new Action(point2, MouseButton.PRIMARY));
+		CurrentAction.undo();
+		CurrentAction.redo();
+		assertEquals(point2, CurrentAction.getPoint());
 	}
 
 }

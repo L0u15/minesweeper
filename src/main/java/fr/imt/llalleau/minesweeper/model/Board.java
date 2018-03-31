@@ -161,7 +161,7 @@ public class Board {
 			nbSquareLeft++;
 			if (((Number) this.getSquare(point)).getValue() == 0) {
 				for (Point p : this.getPointAround(point)) {
-					revealRecursif(p);
+					hideRecursif(p);
 				}
 			}
 		}

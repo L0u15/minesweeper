@@ -52,7 +52,8 @@ public class GraphicalBoard {
 		for (int x = 0; x < tab.length; x++) {
 			for (int y = 0; y < tab[x].length; y++) {
 				ImageView v = getImageView(x, y);
-				if (tab[x][y].getState() == State.REVEALED) {
+				switch (tab[x][y].getState()) {
+				case REVEALED:
 					if (tab[x][y] instanceof Number) {
 						int n = ((Number) tab[x][y]).getValue();
 						v.setImage(ImagesLoader.numbers[n]);
@@ -62,7 +63,15 @@ public class GraphicalBoard {
 					} else if (tab[x][y] instanceof Mine) {
 						v.setImage(ImagesLoader.mine);
 					}
+					break;
+				case HIDDEN:
+					v.setImage(ImagesLoader.hidden);
+					break;
+				case FLAG:
+					v.setImage(ImagesLoader.flag);
+					break;
 				}
+
 			}
 
 		}

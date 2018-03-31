@@ -1,20 +1,22 @@
 package fr.imt.llalleau.minesweeper.model;
 
 import java.awt.Point;
+import javafx.scene.input.MouseButton;
 
 public class Action {
-	// Double linked list
-	// For undo & redo
+	// Double linked list for undo & redo
 	private Point point;
+	private MouseButton mouseButton;
 	private Action next;
 	private Action previous;
 
-	public Action(Point point) {
+	public Action(Point point, MouseButton mouseButton) {
 		this.point = point;
+		this.mouseButton = mouseButton;
 	}
 
-	public Action(Point point, Action previous) {
-		this(point);
+	public Action(Point point, MouseButton mouseButton, Action previous) {
+		this(point, mouseButton);
 		this.previous = previous;
 		if (this.previous != null)
 			this.previous.setNext(this);
@@ -24,12 +26,20 @@ public class Action {
 		return point;
 	}
 
+	public MouseButton getMouseButton() {
+		return mouseButton;
+	}
+
 	public Action getNext() {
 		return next;
 	}
 
 	public void setNext(Action next) {
 		this.next = next;
+	}
+
+	public void setPrevious(Action previous) {
+		this.previous = previous;
 	}
 
 	public Action getPrevious() {
@@ -46,7 +56,7 @@ public class Action {
 
 	@Override
 	public String toString() {
-		return "[x=" + this.point.x + ",y=" + this.point.y + "]-->"
+		return "[x=" + this.point.x + ",y=" + this.point.y + ","+mouseButton+"]-->"
 				+ (this.isFirst() ? "NULL" : this.previous.toString());
 	}
 }

@@ -3,43 +3,49 @@ package fr.imt.llalleau.minesweeper.model;
 import java.awt.Point;
 
 public class CurrentAction {
-	private Action action;
+	private static Action action;
 
-	public CurrentAction() {
-		this.action = null;
+	private CurrentAction() {
 	}
 
-	public void add(Point point) {
-		Action newAction = new Action(point, this.action);
-		this.action = newAction;
+	public static void add(Action newAction) {
+		if (!isNull()) {
+			action.setNext(newAction);
+			newAction.setPrevious(action);
+		}
+		action = newAction;
+
 	}
 
-	public Point getPoint() {
-		return this.action.getPoint();
+	public static Point getPoint() {
+		return action.getPoint();
 	}
 
-	public boolean isFirst() {
-		return this.action.isFirst();
+	public static boolean isFirst() {
+		return action.isFirst();
 	}
 
-	public boolean isLast() {
-		return this.action.isLast();
+	public static boolean isLast() {
+		return action.isLast();
 	}
 
-	public boolean isNull() {
-		return this.action == null;
+	public static boolean isNull() {
+		return action == null;
 	}
 
-	public void undo() {
-		this.action = this.action.getPrevious();
+	public static void undo() {
+		if (!isNull())
+			action = action.getPrevious();
 	}
 
-	public void redo() {
-		this.action = this.action.getNext();
+	public static void redo() {
+		if (!isNull())
+		action = action.getNext();
 	}
 
-	public String toString() {
-		return this.action.toString();
+	public static void clear() {
+		action = null;
+
 	}
 
 }

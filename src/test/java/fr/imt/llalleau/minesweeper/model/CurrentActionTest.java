@@ -1,6 +1,7 @@
 package fr.imt.llalleau.minesweeper.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
@@ -23,15 +24,15 @@ public class CurrentActionTest {
 	}
 
 	@Test
-	public void isFirstTest() {
+	public void asPreviousTest() {
 		CurrentAction.add(new Action(new Point(1, 1), MouseButton.PRIMARY));
-		assertTrue(CurrentAction.isLast());
+		assertTrue(CurrentAction.asPrevious());
 	}
 
 	@Test
-	public void isLastTest() {
+	public void asNextTest() {
 		CurrentAction.add(new Action(new Point(1, 1), MouseButton.PRIMARY));
-		assertTrue(CurrentAction.isLast());
+		assertFalse(CurrentAction.asNext());
 	}
 
 	@Test

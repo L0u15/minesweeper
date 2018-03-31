@@ -56,7 +56,7 @@ public class Action {
 
 	@Override
 	public String toString() {
-		return "[x=" + this.point.x + ",y=" + this.point.y + ","+mouseButton+"]-->"
+		return "[x=" + this.point.x + ",y=" + this.point.y + "," + mouseButton + "]-->"
 				+ (this.isFirst() ? "NULL" : this.previous.toString());
 	}
 }

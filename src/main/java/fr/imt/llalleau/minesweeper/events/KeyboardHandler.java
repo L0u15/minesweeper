@@ -14,21 +14,25 @@ public class KeyboardHandler implements EventHandler<KeyEvent> {
 	@Override
 	public void handle(KeyEvent keyEvent) {
 		if (keyEvent.getCode() == KeyCode.LEFT) {
-			// TODO : undo
 			System.out.println("UNDO");
 			Data.STOP_GAME = false;
-			Point point = CurrentAction.getPoint();
-			App.board.hideRecursif(point);
-			App.gBoard.updateImages();
-			CurrentAction.undo();
-			keyEvent.consume();
+			if (CurrentAction.asPrevious()) {
+				Point point = CurrentAction.getPoint();
+				App.board.hideRecursif(point);
+				App.gBoard.updateImages();
+				CurrentAction.undo();
+			}
 		} else if (keyEvent.getCode() == KeyCode.RIGHT) {
-			// TODO : redo
 			System.out.println("REDO");
-			// Ne pas oublier de checkEndGame a chaque redo
-			// App.board.checkEndGame(lastClick);
-			keyEvent.consume();
+			if (CurrentAction.asNext()) {
+				CurrentAction.redo();
+				Point point = CurrentAction.getPoint();
+				App.board.revealRecursif(point);
+				App.gBoard.updateImages();
+				App.board.checkEndGame(point);
+			}
 		}
+		keyEvent.consume();
 
 	}
 

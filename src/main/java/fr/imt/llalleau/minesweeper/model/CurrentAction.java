@@ -21,12 +21,14 @@ public class CurrentAction {
 		return action.getPoint();
 	}
 
-	public static boolean isFirst() {
-		return action.isFirst();
+	public static boolean asPrevious() {
+		return action != null;
 	}
 
-	public static boolean isLast() {
-		return action.isLast();
+	public static boolean asNext() {
+		if (action == null)
+			return false;
+		return !action.isLast();
 	}
 
 	public static boolean isNull() {
@@ -40,7 +42,7 @@ public class CurrentAction {
 
 	public static void redo() {
 		if (!isNull())
-		action = action.getNext();
+			action = action.getNext();
 	}
 
 	public static void clear() {

@@ -1,10 +1,7 @@
 package fr.imt.llalleau.minesweeper;
 
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.util.Iterator;
 import java.util.List;
-
 import fr.imt.llalleau.minesweeper.events.KeyboardHandler;
 import fr.imt.llalleau.minesweeper.graphics.GraphicalBoard;
 import fr.imt.llalleau.minesweeper.model.Board;
@@ -12,6 +9,8 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -24,8 +23,7 @@ public class App extends Application {
 	public static GraphicalBoard gBoard;
 
 	public static void main(String[] args) {
-		Data.SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		Data.SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		Data.loadProperties();
 
 		try {
 			calculateSizes();
@@ -40,9 +38,7 @@ public class App extends Application {
 	}
 
 	public void start(Stage stage) {
-
 		List<Node> cases = gBoard.createBoard();
-
 		Group root = new Group(cases);
 		Scene scene = new Scene(root, Data.SQUARE_SIZE * Data.BOARD_WIDTH, Data.SQUARE_SIZE * Data.BOARD_HEIGHT);
 		scene.setOnKeyPressed(new KeyboardHandler());
@@ -60,5 +56,21 @@ public class App extends Application {
 				System.exit(1);
 			}
 		}
+	}
+
+	public static void lose() {
+		Data.STOP_GAME = true;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Perdu");
+		alert.setHeaderText("Vous avez perdu ! ");
+		alert.showAndWait();
+	}
+
+	public static void win() {
+		Data.STOP_GAME = true;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Gagné");
+		alert.setHeaderText("Vous avez gagné ! ");
+		alert.showAndWait();
 	}
 }

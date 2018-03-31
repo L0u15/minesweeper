@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import fr.imt.llalleau.minesweeper.App;
 import fr.imt.llalleau.minesweeper.Data;
 import fr.imt.llalleau.minesweeper.model.square.Mine;
 import fr.imt.llalleau.minesweeper.model.square.Number;
@@ -128,7 +129,7 @@ public class Board {
 		}
 
 		// if the square is already revealed, we do nothing
-		if (this.getSquare(point).getState().equals(State.REVEALED)) {
+		if (this.getSquare(point).getState().equals(State.REVEALED) || this.getSquare(point).getState().equals(State.FLAG)) {
 			return;
 		}
 
@@ -171,9 +172,9 @@ public class Board {
 
 	public void checkEndGame(Point lastClick) {
 		if (isMine(lastClick)) {
-			System.out.println("perdu");
+			App.lose();
 		} else if(nbSquareLeft == Data.MINES){
-			System.out.println("gagné");
+			App.win();
 		}
 	}
 
